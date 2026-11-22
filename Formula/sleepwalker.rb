@@ -1,0 +1,33 @@
+class Sleepwalker < Formula
+  desc "Keep your Mac awake with the lid closed while your AI coding agent works"
+  homepage "https://github.com/marciioluucas/sleepwalker"
+  url "https://github.com/marciioluucas/sleepwalker/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "69c863123ae01ba9e053fc38c18bbc44eea041f3553cf2ea64bf5e909ce35557"
+  license "MIT"
+
+  depends_on :macos
+
+  def install
+    # swk finds the daemon at <prefix>/libexec, next to <prefix>/bin
+    bin.install "bin/swk"
+    libexec.install "libexec/sleepwalker-daemon", "libexec/sleepwalker-root"
+    (share/"sleepwalker").install "skills", "docs"
+  end
+
+  def caveats
+    <<~EOS
+      Finish with (asks for your password once — installs the daemon and a narrow sudoers rule):
+        swk setup
+
+      Claude Code skill:
+        mkdir -p ~/.claude/skills/sleepwalker
+        cp #{opt_share}/sleepwalker/skills/sleepwalker/SKILL.md ~/.claude/skills/sleepwalker/
+
+      Before `brew uninstall sleepwalker`, run: swk uninstall
+    EOS
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/swk --version")
+  end
+end
