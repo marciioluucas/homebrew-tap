@@ -3,7 +3,9 @@
 Homebrew formulae.
 
 ```bash
-brew install marciioluucas/tap/sleepwalker
+brew tap marciioluucas/tap
+brew trust --formula marciioluucas/tap/sleepwalker
+brew install sleepwalker
 swk setup
 ```
 

@@ -11,7 +11,7 @@ class Sleepwalker < Formula
     # swk finds the daemon at <prefix>/libexec, next to <prefix>/bin
     bin.install "bin/swk"
     libexec.install "libexec/sleepwalker-daemon", "libexec/sleepwalker-root"
-    (share/"sleepwalker").install "skills", "docs"
+    pkgshare.install "skills", "docs"
   end
 
   def caveats
@@ -21,7 +21,7 @@ class Sleepwalker < Formula
 
       Claude Code skill:
         mkdir -p ~/.claude/skills/sleepwalker
-        cp #{opt_share}/sleepwalker/skills/sleepwalker/SKILL.md ~/.claude/skills/sleepwalker/
+        cp #{opt_pkgshare}/skills/sleepwalker/SKILL.md ~/.claude/skills/sleepwalker/
 
       Before `brew uninstall sleepwalker`, run: swk uninstall
     EOS
